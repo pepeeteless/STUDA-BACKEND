@@ -1,7 +1,8 @@
 
 import { Module } from "../../models/module"
+import PrismaModuleRepository from "../prisma/prismaModuleRepository"
 
-class InMemoryModuleRepository {
+class InMemoryModuleRepository implements PrismaModuleRepository {
 
     private _modules: Module[]
 
@@ -13,7 +14,7 @@ class InMemoryModuleRepository {
         return this._modules
     }
 
-    async getById(id: string): Promise<Module | undefined> {
+    async getById(id: string): Promise<Module | undefined | null> {
         const module = this._modules.find(item => item.id === id)
         return module
     }

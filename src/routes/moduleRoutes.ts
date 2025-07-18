@@ -2,8 +2,13 @@ import { Router } from "express"
 import ModuleController from "../controllers/moduleController"
 import ModuleService from "../services/moduleService"
 import InMemoryModuleRepository from "../repositories/inMemory/inMemoryModuleRepository"
+import PrismaModuleRepository from "../repositories/prisma/prismaModuleRepository"
 
-const moduleController = new ModuleController(new ModuleService(new InMemoryModuleRepository()))
+    //Change instance to test in Memory Repository!!!
+
+//const moduleController = new ModuleController(new ModuleService(new InMemoryModuleRepository())) // LOCAL REPOSITORY
+const moduleController = new ModuleController(new ModuleService(new PrismaModuleRepository())) // PRISMA REPOSTORY
+
 const modulesRoutes = Router()
 
 

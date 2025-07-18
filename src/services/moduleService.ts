@@ -1,9 +1,10 @@
 import { Module } from "../models/module"
 import InMemoryModuleRepository from "../repositories/inMemory/inMemoryModuleRepository"
+import PrismaModuleRepository from "../repositories/prisma/prismaModuleRepository"
 
 class ModuleService {
 
-    constructor(private moduleRepository: InMemoryModuleRepository){}
+    constructor(private moduleRepository: InMemoryModuleRepository | PrismaModuleRepository){}
 
     async getAll(): Promise<Module[] | undefined>{
         const allModules = await this.moduleRepository.getAll()

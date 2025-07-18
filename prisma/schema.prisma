@@ -17,7 +17,7 @@ datasource db {
 model Module {
   id String @id @default(uuid())
   name String
-  description String
+  description String?
   grids Grid[]
 
   createdAt DateTime @default(now())
