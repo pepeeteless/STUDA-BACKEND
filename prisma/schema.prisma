@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Module {
+  id String @id @default(uuid())
+  name String
+  description String
+  grids Grid[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("modules")
+}
+
+model Grid {
+  id String @id @default(uuid())
+  id_module String
+  name String
+  description String?
+  tasks Task[]
+  
+  module Module @relation(fields: [id_module], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("grids")
+}
+
+model Task {
+  id String @id @default(uuid())
+  id_grid String
+  name String
+  category String
+  date DateTime
+  timeInMinutes Int
+  file String?
+  satisfaction Int
+  observation String?
+  
+  grid Grid @relation(fields: [id_grid], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tasks")
+
+}
