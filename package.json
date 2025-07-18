@@ -1,0 +1,27 @@
+{
+  "name": "studa-backend",
+  "version": "1.0.0",
+  "description": "API rest",
+  "main": "./src/app/server.ts",
+  "scripts": {
+    "dev": "nodemon ./src/app/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pepe",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^4.21.2",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/typescript": "^0.4.29",
+    "@types/uuid": "^10.0.0",
+    "@types/yup": "^0.29.14",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
+  }
+}

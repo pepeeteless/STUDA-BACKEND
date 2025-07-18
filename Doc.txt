@@ -1,0 +1,96 @@
+Sistema STUDA
+
+Este sistema deve ser capaz de adicionar um MÓDULO. Onde dentro desse modulo voce é capaz de criar GRADES, e dentro dessas grades voce pode salvar ATIVIDADES ja feitas. Exemplo:
+
+MODULO: Música
+    GRADE: Guitarra
+        ATIVIDADE: Escala Pentatônica
+
+Cada atividade terá parametros de:
+    Categoria - tipos de categoria para a atividade // Teoria Musical, Partitura, Leitura Ritmica, Empilhamento de acordes...
+        as categorias são criadas pelo próprio usuário.
+
+    Data - Data da realização da atividade.
+        Também adicionada pelo usuário, pois pode ser que ele adicione posteriormente.
+    
+    Tempo - O tempo disposto para o cumprimento dessa atividade em horas,min,seg // 1h 24min 45 seg...
+        o tempo também é determinado pelo usuário
+    
+    Arquivo - Caso o usuário queira carregar algum arquivo junto a atividade, do seu material de estudo. // partitura.rar, apostila harmonia.rar...
+        os arquivos são enviados pelo usuário e devem ser .rar ou .zip, porém pode ser qualquer extenção de arquivo dentro da compactação!!
+
+    Descrição - Descrição básica ou detalhada sobre a atividade // Fraseado para progressão ii V7 I em G Maior...
+        a descrição também é preenchida pelo usuário
+
+    Satisfação - Nota de satisfação do usuario com a realização da tarefa // Arpejos sweep - 6
+        a nota também é adicionada pelo usuário
+
+Formato FINAL:
+    MODULO: Música
+        GRADE: Guitarra
+            ATIVIDADE: Escala Pentatônica
+                CATEGORIA: ESCALAS
+                DATA: 06/07/2025
+                TEMPO: 1h
+                ARQUIVO: shapes_penta_menor.rar
+                DESCRIÇÃO: Estudo para fixar os shapes da escala pentatonica menor no braço do instrumento.
+                SATISFAÇÃO: 8
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Essa atividade será implementada dentro da GRADE: Guitarra do MODULO: Música.
+
+Nessa grade sera possivel visualizar todas as atividades feitas:
+    por Data
+    por Tempo
+    por Categoria
+
+Terá também a opção semanal, mensal e anual.
+para ver uma tabela completa com todas as atividades do tempo.
+
+Terão contadores de estatisticas como:
+    tempo de horas de estudo por MODULO
+    tempo de horas de estudo por GRADE
+    tempo de horas de estudo por ATIVIDADE
+    tempo de horas de estudo por CATEGORIA
+
+    numero de atividades por MODULO
+    numero de atividades por GRADE
+    numero de atividades por CATEGORIA
+
+    quantos dias no ano voce estudou
+    quantos dias no ano voce não estudou
+
+    média de tempo de estudos anual, mensal, semanal, diaria
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+REGRAS DE DEV:
+
+Modulo = {
+    id: string uuid required
+    name: string required
+    description: string 
+    grids: Grid[]
+
+}
+
+Grid = {
+    id: string uuid required
+    name: string required
+    description: string
+    tasks: tasks[]
+}
+
+Task = {
+    id: string uuid required
+    name: string required
+    category: string required
+    date: dd/mm/aaaa
+    description: string
+    time: h min seg
+    file: .png .txt .doc .mp3 .mp4 .exc ...
+    description: string
+    satisfaction: number
+}
