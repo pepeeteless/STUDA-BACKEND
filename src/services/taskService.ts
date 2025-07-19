@@ -1,10 +1,11 @@
 import { Task } from "../models/task";
 import InMemoryTaskRepository from "../repositories/inMemory/inMemoryTaskRepository";
+import PrismaTaskRepository from "../repositories/prisma/prismaTaskRepository";
 
 
 class TaskService {
 
-    constructor(private taskRepository: InMemoryTaskRepository){}
+    constructor(private taskRepository: InMemoryTaskRepository | PrismaTaskRepository){}
 
     async getAllTasksInGrid(id_grid: string){
         const allTasks = await this.taskRepository.getAllTasksInGrid(id_grid)

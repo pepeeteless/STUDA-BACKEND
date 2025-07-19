@@ -1,6 +1,7 @@
 import { Task } from "../../models/task";
+import PrismaTaskRepository from "../prisma/prismaTaskRepository";
 
-class InMemoryTaskRepository {
+class InMemoryTaskRepository implements PrismaTaskRepository {
 
     private _tasks: Task[]
 
@@ -10,7 +11,7 @@ class InMemoryTaskRepository {
 
     }
 
-    async getAllTasksInGrid(id_grid: string){
+    async getAllTasksInGrid(id_grid: string): Promise<Task[]>{
         const allTasks = this._tasks.filter(item => item.id_grid === id_grid)
         
         if(allTasks.length === 0){
@@ -20,11 +21,11 @@ class InMemoryTaskRepository {
         return allTasks
     }
 
-    getAll() {
+    async getAll(): Promise<Task[] | undefined> {
         return this._tasks
     }
 
-    async getByID(id: string) {
+    async getByID(id: string): Promise<Task | undefined | null> {
 
         const task = await this._tasks.find(item => item.id === id)
 
@@ -36,7 +37,7 @@ class InMemoryTaskRepository {
 
     }
 
-    async create(data: Task) {
+    async create(data: Task): Promise<Task> {
 
         this._tasks.push(data)
 
@@ -45,7 +46,7 @@ class InMemoryTaskRepository {
 
     }
 
-    update(data: Task, id: string) {
+    async update(data: Task, id: string): Promise<Task> {
         const indexOfTaskToBeUpdated = this._tasks.findIndex(item => item.id === id)
 
         if (indexOfTaskToBeUpdated === -1) {
@@ -68,7 +69,7 @@ class InMemoryTaskRepository {
 
     }
 
-    delete(id: string) {
+    async delete(id: string): Promise<string> {
         const indexOfTaskToBeDeleted = this._tasks.findIndex(item => item.id === id)
 
         if (indexOfTaskToBeDeleted === -1) {

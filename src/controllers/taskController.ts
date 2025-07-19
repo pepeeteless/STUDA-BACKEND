@@ -59,12 +59,14 @@ class TaskController {
     create = async (req: Request, res: Response) => {
 
         try {
-            await CreateTaskSchema.validate(req.body)
+            const validatedData = await CreateTaskSchema.validate(req.body)
 
-            const id = uuidv4()
-            req.body.id = id
+            const taskToCreate = {
+                ...validatedData,
+                id: uuidv4()
+            }
 
-            const createdTask = await this.taskService.create(req.body)
+            const createdTask = await this.taskService.create(taskToCreate)
             res.status(201).json(createdTask)
             return createdTask
 
@@ -80,10 +82,16 @@ class TaskController {
         try {
             const { id } = req.params
 
-            await UpdateTaskSchema.validate(req.body)
+            const validatedData = await UpdateTaskSchema.validate(req.body)
             await UpdateTaskSchemaParams.validate(id)
 
-            const updatedTask = await this.taskService.update(req.body, id)
+            const taskToUpdate = {
+                ...validatedData,
+                id: id,
+                id_grid: req.body.id_grid
+            }
+
+            const updatedTask = await this.taskService.update(taskToUpdate, id)
             res.status(200).json(updatedTask)
             return updatedTask
 
