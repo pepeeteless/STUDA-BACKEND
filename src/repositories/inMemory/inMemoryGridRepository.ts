@@ -1,6 +1,7 @@
 import { Grid } from "../../models/grid";
+import PrismaGridRepository from "../prisma/prismaGridRepository";
 
-class InMemoryGridRepository {
+class InMemoryGridRepository implements PrismaGridRepository {
 
     private _grids: Grid[]
 
@@ -10,7 +11,7 @@ class InMemoryGridRepository {
 
     }
 
-    async getAllGridsInModule(id_module: string){
+    async getAllGridsInModule(id_module: string): Promise<Grid[]>{
         const allGrids = this._grids.filter(item => item.id_module === id_module)
 
         if(allGrids.length === 0){
@@ -20,25 +21,25 @@ class InMemoryGridRepository {
         return allGrids
     }
     
-    async getAll() {
+    async getAll(): Promise<Grid[] | undefined> {
         return this._grids
     }
 
-    async getById(id: string) {
+    async getById(id: string): Promise<Grid | undefined | null> {
 
         const grid = await this._grids.find(item => item.id === id)
         return grid
 
     }
 
-    async create(data: Grid) {
+    async create(data: Grid): Promise<Grid> {
 
         this._grids.push(data)
         return data
 
     }
 
-    async update(data: Grid, id: string) {
+    async update(data: Grid, id: string): Promise<Grid> {
         const indexOfGridToBeUpdated = await this._grids.findIndex(item => item.id === id)
 
         if (indexOfGridToBeUpdated === -1) {
@@ -57,7 +58,7 @@ class InMemoryGridRepository {
 
     }
 
-    async delete(id: string) {
+    async delete(id: string): Promise<string> {
         const indexOfGridToBeDeleted = this._grids.findIndex(item => item.id === id)
 
         if (indexOfGridToBeDeleted === -1) {

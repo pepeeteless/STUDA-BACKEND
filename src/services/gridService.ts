@@ -1,9 +1,10 @@
 import { Grid } from "../models/grid";
 import InMemoryGridRepository from "../repositories/inMemory/inMemoryGridRepository";
+import PrismaGridRepository from "../repositories/prisma/prismaGridRepository";
 
 
 class GridService {
-    constructor(private gridRepository: InMemoryGridRepository){}
+    constructor(private gridRepository: InMemoryGridRepository | PrismaGridRepository){}
 
     async getAllGridsInModule(id_module: string){
         const allGrids = await this.gridRepository.getAllGridsInModule(id_module)

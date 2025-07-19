@@ -3,8 +3,13 @@ import { Router } from "express";
 import GridController from "../controllers/gridController";
 import GridService from "../services/gridService";
 import InMemoryGridRepository from "../repositories/inMemory/inMemoryGridRepository";
+import PrismaGridRepository from "../repositories/prisma/prismaGridRepository";
 
-const gridController = new GridController(new GridService(new InMemoryGridRepository()))
+    //Change instances to test In Memory Repository
+
+//const gridController = new GridController(new GridService(new InMemoryGridRepository())) // LOCAL REPOSITORY
+const gridController = new GridController(new GridService(new PrismaGridRepository())) // PRISMA REPOSITORY
+
 const gridRoutes = Router()
 
 gridRoutes.get("/", gridController.getAll) // getAll Grids

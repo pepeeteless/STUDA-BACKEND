@@ -21,6 +21,9 @@ class PrismaModuleRepository {
         const module = await prisma.module.findFirst({
             where: {
                 id
+            },
+            include: {
+                grids: true
             }
         })
         console.log(module)
